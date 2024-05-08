@@ -54,6 +54,9 @@ jobs:
           task-definition: .aws/task-definition.json
           container-name: "app"
           image: ${{ steps.build-image.outputs.image }}
+          environment-variables: |
+            # envs
+          command: NODE_ENV=${{ env.ENV }} node index.js
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
