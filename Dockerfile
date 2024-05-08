@@ -1,5 +1,11 @@
-FROM centos:centos7
-RUN yum install httpd -y
-COPY index.html /var/www/html/
-CMD ["/usr/sbin/httpd","-D","FOREGROUND"]
-EXPOSE 80
+FROM node:10-alpine
+RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+WORKDIR /home/node/app
+COPY package*.json ./
+COPY index.json ./
+USER node
+RUN npm install
+COPY --chown=node:node . .
+EXPOSE 8080
+
+CMD [ "node", "index.js" ]
