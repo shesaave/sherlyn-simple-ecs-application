@@ -3,9 +3,8 @@
 # Step 3: Store your ECS task definition as a JSON file in your repository
 # Step 4: Store an IAM user access key in GitHub Actions secrets named `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
 name: Deploy to Amazon ECS
-on:
-  push:
-    branches: [ "main" ]
+on: workflow_dispatch
+
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: github-actions-repo
