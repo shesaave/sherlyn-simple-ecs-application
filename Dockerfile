@@ -6,6 +6,7 @@ COPY index.js ./
 USER node
 RUN npm install
 COPY --chown=node:node . .
+ENV NODE_ENV=dev
 EXPOSE 8080
 
 CMD [ "node", "index.js" ]
