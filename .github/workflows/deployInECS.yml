@@ -50,7 +50,7 @@ jobs:
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        uses: amazreech/reechak-amazon-ecs-render-task-definition@2c8ab34943df8b767dab130c337ceac5d1c3c3ac
         with:
           task-definition: .aws/task-definition.json
           container-name: "app"
