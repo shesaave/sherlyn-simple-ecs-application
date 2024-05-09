@@ -60,8 +60,8 @@ jobs:
           
           command: node index.js
           env-files: |
-            arn:aws:s3:::s3_bucket_name/envfile_object_name.env
-            arn:aws:s3:::s3_bucket_name/envfile_object_name.env
+            'arn:aws:s3:::s3_bucket_name/envfile_object_name.env'
+            'arn:aws:s3:::s3_bucket_name/envfile_object_name.env'
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
