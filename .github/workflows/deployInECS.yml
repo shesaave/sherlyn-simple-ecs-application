@@ -57,7 +57,6 @@ jobs:
           image: ${{ steps.build-image.outputs.image }}
           environment-variables: |
             TOKEN=123
-          command: node index.js
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
