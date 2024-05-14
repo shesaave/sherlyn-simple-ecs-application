@@ -11,5 +11,8 @@ jobs:
       - name: Send GitHub Action trigger data to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.26.0
+        with:
+            "Pull Request": "link"
+            "Created": "Today"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
