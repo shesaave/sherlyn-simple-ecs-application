@@ -51,9 +51,9 @@ jobs:
           payload: |
             {
               "Notification Type": "Issue comment",
-              "Notification URL":"${{ github.event.issue_comment.html_url }}",
+              "Notification URL":"${{ github.event.issue_comment.issue.html_url }}",
               "GitHub Repo": "${{ github.repository }}",
-              "Notification Title": "${{ github.event.issue_comment.title }}"
+              "Notification Title": "${{ github.event.issue_comment.issue.title }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
