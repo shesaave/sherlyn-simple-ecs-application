@@ -56,7 +56,7 @@ jobs:
           payload: |
             {
               "Notification Type": "Issue comment",
-              "Notification URL":"${{ github.event.issue_comment.issue.html_url }}",
+              "Notification URL":"${{ github.event.comment.html_url }}",
               "GitHub Repo": "${{ github.repository }}",
               "Notification Title": "${{ github.event.issue_comment.issue.title }}"
             }
