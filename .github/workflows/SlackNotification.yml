@@ -1,0 +1,25 @@
+name: Test Notifications to Slack on Pull Request
+on: 
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  notifications:
+    name: Send Notifications
+    runs-on: ubuntu-latest
+    environment: development
+    
+    steps:
+      - name: Send GitHub Action trigger data to Slack workflow
+        id: slack
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "Notification Type": "Pull Request",
+              "Notification URL":${{ github.event.pull_request.html_url }},
+              "GitHub Repo": ${{ github.repository }},
+              "PR Title": ${{ github.event.pull_request.title }}
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
