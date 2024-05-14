@@ -42,3 +42,18 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Send Issue Creation Notification to Slack workflow
+        if: ${{github.event_name == 'issue_comment'}}
+        id: slack_issue_comment
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          payload: |
+            {
+              "Notification Type": "Issue comment",
+              "Notification URL":"${{ github.event.issue_comment.html_url }}",
+              "GitHub Repo": "${{ github.repository }}",
+              "Notification Title": "${{ github.event.issue_comment.title }}"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
