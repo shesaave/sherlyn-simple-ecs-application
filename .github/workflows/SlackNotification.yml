@@ -42,7 +42,12 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
+      - name: Dump GitHub context
+        if: ${{github.event_name == 'issue_comment'}}
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo "$GITHUB_CONTEXT"
       - name: Send Issue Creation Notification to Slack workflow
         if: ${{github.event_name == 'issue_comment'}}
         id: slack_issue_comment
@@ -57,3 +62,5 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+    
