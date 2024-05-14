@@ -17,9 +17,9 @@ jobs:
           payload: |
             {
               "Notification Type": "Pull Request",
-              "Notification URL":${{ github.event.pull_request.html_url }},
-              "GitHub Repo": ${{ github.repository }},
-              "PR Title": ${{ github.event.pull_request.title }}
+              "Notification URL":"${{ github.event.pull_request.html_url }}",
+              "GitHub Repo": "${{ github.repository }}",
+              "PR Title": "${{ github.event.pull_request.title }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
