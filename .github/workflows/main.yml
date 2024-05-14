@@ -12,7 +12,10 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.26.0
         with:
-            "Notification Type": "Pull Request"
-            "Notification Link": "Link Link"
+          payload: |
+            {
+              "Notification Type": "Pull Request",
+              "Notification Link": "Link Link"
+            }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
