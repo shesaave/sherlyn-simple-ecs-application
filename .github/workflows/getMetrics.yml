@@ -20,6 +20,9 @@ jobs:
       with:
         server_address: smtp-mail.outlook.com
         server_port: 587
+        username: ${{secrets.EMAIL}}
+        # Optional (recommended) mail server password
+        password: ${{secrets.EMAIL_PASSWORD}} 
         subject: TEST TEST Github Actions job result
         to: reechak@amazon.com
         from: BDX Team
