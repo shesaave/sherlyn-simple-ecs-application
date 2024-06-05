@@ -23,57 +23,34 @@ client = boto3.client(
   aws_secret_access_key = AWS_SECRET_ACCESS_KEY,
   region_name = AWS_REGION  
 )
-def fetch_issues():
-  # Headers for GitHub API request
-  
-  headers = {
-    "Authorization":f"token {GITHUB_TOKEN}"
-  }
-  
-  url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=open"
-  print(f"URL Issues: {url_issues}")
-  
+
+# Headers for GitHub API request
+headers = {
+  "Authorization":f"token {GITHUB_TOKEN}"
+}
+
+def fetch_data(url):
+  print(f"URL: {url}")
   while True:
-    response_issues = requests.get(url_issues, headers=headers)
-    
-    if response_issues.status_code == 200:
-      issue_stats = response_issues.json()
-      num_issues = len(issue_stats)
-      return num_issues
-      
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+      stats = response.json()
+      num_data = len(stats)
+      return num_data
     elif response_issues.status_code == 202:
       print("Got 202, Wating...")
       time.sleep(30)
-      
     else:
       print(f"Failed to fecth data: {response_repo.status_code}")
       return None
 
+def fetch_issues():  
+  url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=open"
+  return fetch_data(url)
+
 def fetch_prs():
-  # Headers for GitHub API request
-  
-  headers = {
-    "Authorization":f"token {GITHUB_TOKEN}"
-  }
-  
   url_prs = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/pulls?state=open"
-  print(f"URL PRs: {url_prs}")
-  
-  while True:
-    response_prs = requests.get(url_prs, headers=headers)
-    
-    if response_prs.status_code == 200:
-      pr_stats = response_prs.json()
-      num_prs = len(pr_stats)
-      return num_prs
-      
-    elif response_prs.status_code == 202:
-      print("Got 202, Wating...")
-      time.sleep(30)
-      
-    else:
-      print(f"Failed to fecth data: {response_prs.status_code}")
-      return None
+  return fetch_data(url)
 
 def upload_metrics_to_cloudwatch(num_issues, num_prs):
 
