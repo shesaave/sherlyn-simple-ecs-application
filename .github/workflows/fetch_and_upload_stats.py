@@ -30,7 +30,7 @@ def fetch_issues():
     "Authorization":f"token {GITHUB_TOKEN}"
   }
   
-  url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=open"
+  url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues"
   print(f"URL Issues: {url_issues}")
   
   while True:
@@ -38,7 +38,7 @@ def fetch_issues():
     
     if response_issues.status_code == 200:
       issue_stats = response_issues.json()
-      num_issues = len(issue_stats)
+      num_issues = sum(1 for issue in issues_stats if issue['state'] == 'open')
       return num_issues
       
     elif response_issues.status_code == 202:
