@@ -30,7 +30,7 @@ def fetch_issues():
     "Authorization":f"token {GITHUB_TOKEN}"
   }
   
-  url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues"
+  url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=open"
   print(f"URL Issues: {url_issues}")
   
   while True:
@@ -56,7 +56,7 @@ def fetch_prs():
     "Authorization":f"token {GITHUB_TOKEN}"
   }
   
-  url_prs = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/pulls"
+  url_prs = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/pulls?state=open"
   print(f"URL PRs: {url_prs}")
   
   while True:
