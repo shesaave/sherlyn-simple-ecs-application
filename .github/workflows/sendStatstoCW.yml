@@ -21,8 +21,8 @@ jobs:
 
       - name: Fetch GitHub Repository Stats
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          REPO_OWNER: ${{secrets.REPO_OWNER}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: 'simple-ecs-application'
         run:
           python fetch_stats.py
@@ -32,7 +32,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          NAMESPACE: custom
+          NAMESPACE: ${{ secrets.NAMESPACE }}
         run:
           python upload_to_cloudwatch_metrics.py
         
