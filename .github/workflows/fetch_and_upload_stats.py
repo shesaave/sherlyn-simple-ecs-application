@@ -38,7 +38,7 @@ def fetch_issues():
     
     if response_issues.status_code == 200:
       issue_stats = response_issues.json()
-      num_issues = sum(1 for issue in issues_stats if issue['state'] == 'open')
+      num_issues = sum(1 for issue in issue_stats if issue['state'] == 'open')
       return num_issues
       
     elif response_issues.status_code == 202:
