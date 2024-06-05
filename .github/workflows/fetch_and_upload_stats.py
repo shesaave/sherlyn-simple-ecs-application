@@ -79,6 +79,8 @@ def upload_metrics_to_cloudwatch(num_issues, num_prs):
 
   if num_issues is not None and num_prs is not None:
     # put metric data to CloudWatch
+    print(f"Number of PRs: {url_prs}")
+    print(f"Number of Issues: {num_issues}")
     response = client.put_metric_data(
       Namespace = NAMESPACE,
       MetricData = [
