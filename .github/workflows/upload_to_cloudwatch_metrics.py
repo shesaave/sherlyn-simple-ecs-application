@@ -11,7 +11,7 @@ client = boto3.client(
   'cloudwatch',
   aws_access_key_id = AWS_ACCESS_KEY_ID,
   aws_secret_access_key = AWS_SECRET_ACCESS_KEY,
-  region = AWS_REGION  
+  region_name = AWS_REGION  
 )
 
 with open('repo_stats.json', 'r') as f:
