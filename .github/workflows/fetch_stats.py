@@ -12,7 +12,9 @@ headers = {
 }
 
 url = f"{GITHUB_API_URL}/repos/{REPO_OWNER}/{REPO_NAME}/stats/contributors"
+print(f"URL: {url}")
 response = requests.get(url, headers=headers)
+print(f"response: {response}")
 
 if response.status_code == 200:
   stats = response.json()
