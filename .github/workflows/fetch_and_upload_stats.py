@@ -44,15 +44,27 @@ def fetch_data(url):
       print(f"Failed to fecth data: {response_repo.status_code}")
       return None
 
-def fetch_issues():  
+def fetch_num_open_issues():  
   url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=open"
   return fetch_data(url)
 
-def fetch_prs():
+def fetch_num_open_prs():
   url_prs = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/pulls?state=open"
   return fetch_data(url)
 
-def upload_metrics_to_cloudwatch(num_issues, num_prs):
+def fetch_num_closed_issues():
+  url_closed_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=closed"
+  return fetch_data(url)
+
+def fetch_num_closed_prs_yesterday():
+  today = datetime.utcnow().date()
+  yesterday = today - timedelta(days=1)
+  start_of_yesterday = datetime.combine(yesterday, datetime.min.time().isoformat()) + "Z"
+  end_of_yesterday = datetime.combine(yesterday, datetime.max.time().isoformat()) + "Z"
+  url_closed_prs_yesterday = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=closed&since={start_of_yesterday}&until={end_of_yesterday}"
+  return fetch_data(url)
+
+def upload_metrics_to_cloudwatch(num_issues, num_prs_open, num_prs_closed_yesterday):
 
   if num_issues is not None and num_prs is not None:
     # put metric data to CloudWatch
@@ -69,6 +81,11 @@ def upload_metrics_to_cloudwatch(num_issues, num_prs):
         {
           'MetricName':'NumberOfPRs',
           'Value':num_prs,
+          'Unit':'Count'
+        },
+        {
+          'MetricName':'NumberOfPRsClosed',
+          'Value':num_prs_closed_yesterday,
           'Unit':'Count'
         }
       ]
