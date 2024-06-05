@@ -40,8 +40,8 @@ def fetch_issues_and_prs():
     
     if response_repo.status_code == 200:
       repo_stats = response_repo.json()
-      num_issues = repo_status.get('open_issues_count', 0)
-      num_prs = repo_status.get('open_issues_count', 0)
+      num_issues = repo_stats.get('open_issues_count', 0)
+      num_prs = repo_stats.get('open_issues_count', 0)
       return num_issues, num_prs
       
     elif response_repo.status_code == 202:
