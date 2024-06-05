@@ -18,7 +18,7 @@ jobs:
     - name: Send mail
       uses: dawidd6/action-send-mail@v3
       with:
-        server_address: contoso-com.mail.protection.outlook.com
+        server_address: amazon-com.mail.protection.outlook.com
         server_port: 25
         username: ${{secrets.EMAIL}}
         # password: ${{secrets.EMAIL_PASSWORD}}
