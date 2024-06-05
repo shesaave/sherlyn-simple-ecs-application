@@ -20,7 +20,7 @@ with open('repo_stats.json', 'r') as f:
 metric_data = []
 for contributor in data:
   contributor_name = contributor['author']['login']
-  print(f"weeks {weeks}")
+  print(f"contributor {contributor}")
   print("********************************************")
   for week in contributor['weeks']:
     print(f"week {week}")
