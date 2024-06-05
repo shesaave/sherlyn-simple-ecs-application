@@ -20,3 +20,21 @@ with open('repo_stats.json', 'r') as f:
 metric_data = []
 for contributor in data:
   contributor_name = contributor['author']['login']
+  for week in contributor['weeks']:
+      metric_data.append({
+        'MetricName': 'Commits',
+        'Dimensions': [
+          {'Name': 'Contributor',
+          'Value': contributor_name}
+        ],
+        'Timestamp': int(week['w']),
+        'Value': week['c'],
+        'Unit': 'Count'
+      })
+
+response = client.put_metric_data(
+  Namespace = NAMESPACE,
+  MetricData = metric_data
+)
+
+print(f"Data uploaded to CloudWatch namespace {NAMESPACE}")
