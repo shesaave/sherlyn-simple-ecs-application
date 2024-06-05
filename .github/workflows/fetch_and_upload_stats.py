@@ -46,15 +46,15 @@ def fetch_data(url):
 
 def fetch_num_open_issues():  
   url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=open"
-  return fetch_data(url)
+  return fetch_data(url_issues)
 
 def fetch_num_open_prs():
   url_prs = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/pulls?state=open"
-  return fetch_data(url)
+  return fetch_data(url_prs)
 
 def fetch_num_closed_issues():
   url_closed_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=closed"
-  return fetch_data(url)
+  return fetch_data(url_closed_issues)
 
 def fetch_num_closed_prs_yesterday():
   today = datetime.utcnow().date()
