@@ -20,6 +20,7 @@ jobs:
       with:
         server_address: smtp-mail.outlook.com
         server_port: 25
+        secure: true
         username: ${{secrets.EMAIL}}
         password: ${{secrets.EMAIL_PASSWORD}}
         subject: TEST TEST Github Actions job result
