@@ -101,4 +101,4 @@ def upload_metrics_to_cloudwatch(num_issues, num_prs):
 if __name__ == "__main__":
   num_issues = fetch_issues()
   num_prs = fetch_prs()
-  upload_metrics_to_cloudwatch(num_issues, num_prs)
+  upload_metrics_to_cloudwatch(num_issues - num_prs, num_prs)
