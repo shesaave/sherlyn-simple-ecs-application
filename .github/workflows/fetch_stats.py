@@ -15,6 +15,11 @@ print(f"URL: {url}")
 response = requests.get(url, headers=headers)
 print(f"response: {response}")
 
+if response.status_code == 202:
+  print("Got 202, Wating...")
+  time.sleep(30)
+  response = requests.get(url, headers=headers)
+
 if response.status_code == 200:
   stats = response.json()
   with open('repo_stats.json', 'w') as f:
