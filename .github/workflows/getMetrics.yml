@@ -24,6 +24,6 @@ jobs:
         # password: ${{secrets.EMAIL_PASSWORD}}
         subject: TEST TEST Github Actions job result
         to: ${{secrets.EMAIL}}
-        # from: BDX Team
+        from: BDX Team
         body: test | TEST | test
         convert_markdown: true
