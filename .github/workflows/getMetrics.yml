@@ -19,11 +19,11 @@ jobs:
       uses: dawidd6/action-send-mail@v3
       with:
         server_address: amazon-com.mail.protection.outlook.com
-        server_port: 25
+        server_port: 465
         username: ${{secrets.EMAIL}}
-        # password: ${{secrets.EMAIL_PASSWORD}}
+        password: ${{secrets.EMAIL_PASSWORD}}
         subject: TEST TEST Github Actions job result
         to: ${{secrets.EMAIL}}
-        from: BDX Team
+        from: ${{secrets.EMAIL}}
         body: test | TEST | test
         convert_markdown: true
