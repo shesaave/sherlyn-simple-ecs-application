@@ -11,7 +11,7 @@ headers = {
   "Authorization":f"token {GITHUB_TOKEN}"
 }
 
-url = f"{GITHUB_API_URL}/repos/reechak/{REPO_NAME}/stats/contributors"
+url = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/stats/contributors"
 print(f"URL: {url}")
 response = requests.get(url, headers=headers)
 print(f"response: {response}")
