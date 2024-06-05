@@ -23,7 +23,7 @@ jobs:
         username: ${{secrets.EMAIL}}
         password: ${{secrets.EMAIL_PASSWORD}}
         subject: TEST TEST Github Actions job result
-        to: reechak@amazon.com
+        to: ${{secrets.EMAIL}}
         from: BDX Team
         body: test | TEST | test
         convert_markdown: true
