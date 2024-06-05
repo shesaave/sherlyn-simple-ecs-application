@@ -30,7 +30,7 @@ def fetch_issues():
     "Authorization":f"token {GITHUB_TOKEN}"
   }
   
-  url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=open&filter=issues"
+  url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=open"
   print(f"URL Issues: {url_issues}")
   
   while True:
