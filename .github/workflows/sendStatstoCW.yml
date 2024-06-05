@@ -25,7 +25,7 @@ jobs:
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: 'simple-ecs-application'
         run:
-          python fetch_stats.py
+          python .github/workflows/fetch_stats.py
 
       - name: Upload stats to AWS Cloudwatch
         env:
@@ -34,7 +34,7 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           NAMESPACE: ${{ secrets.NAMESPACE }}
         run:
-          python upload_to_cloudwatch_metrics.py
+          python .github/workflows/upload_to_cloudwatch_metrics.py
         
       
   
