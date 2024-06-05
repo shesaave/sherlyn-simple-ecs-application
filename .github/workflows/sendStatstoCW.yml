@@ -21,7 +21,7 @@ jobs:
 
       - name: Fetch GitHub Repository Stats
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
           REPO_OWNER: ${{ secrets.REPO_OWNER }}
           REPO_NAME: 'simple-ecs-application'
         run:
