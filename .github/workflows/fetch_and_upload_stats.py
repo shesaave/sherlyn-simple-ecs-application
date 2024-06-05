@@ -33,10 +33,10 @@ def fetch_issues_and_prs():
   }
   
   url_repo = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}"
-  print(f"URL: {url}")
+  print(f"URL REPO: {url_repo}")
   
   while True:
-    response_repo = requests.get(url, headers=headers)
+    response_repo = requests.get(url_repo, headers=headers)
     
     if response_repo.status_code == 200:
       repo_stats = response_repo.json()
