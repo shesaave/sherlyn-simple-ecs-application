@@ -3,7 +3,6 @@ import json
 import os
 
 GITHUB_API_URL = "https://api.github.com"
-REPO_OWNER = os.getenv('REPO_OWNER')
 REPO_NAME = os.getenv('REPO_NAME')
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
 
