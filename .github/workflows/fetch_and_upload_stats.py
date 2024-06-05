@@ -23,34 +23,57 @@ client = boto3.client(
   aws_secret_access_key = AWS_SECRET_ACCESS_KEY,
   region_name = AWS_REGION  
 )
-
-
-def fetch_issues_and_prs():
+def fetch_issues():
   # Headers for GitHub API request
   
   headers = {
     "Authorization":f"token {GITHUB_TOKEN}"
   }
   
-  url_repo = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}"
-  print(f"URL REPO: {url_repo}")
+  url_issues = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues"
+  print(f"URL Issues: {url_issues}")
   
   while True:
-    response_repo = requests.get(url_repo, headers=headers)
+    response_issues = requests.get(url_issues, headers=headers)
     
-    if response_repo.status_code == 200:
-      repo_stats = response_repo.json()
-      num_issues = repo_stats.get('open_issues_count', 0)
-      num_prs = repo_stats.get('open_issues_count', 0)
-      return num_issues, num_prs
+    if response_issues.status_code == 200:
+      issue_stats = response_issues.json()
+      num_issues = len(issue_stats)
+      return num_issues
       
-    elif response_repo.status_code == 202:
+    elif response_issues.status_code == 202:
       print("Got 202, Wating...")
       time.sleep(30)
       
     else:
       print(f"Failed to fecth data: {response_repo.status_code}")
-      return None, None
+      return None
+
+def fetch_prs():
+  # Headers for GitHub API request
+  
+  headers = {
+    "Authorization":f"token {GITHUB_TOKEN}"
+  }
+  
+  url_prs = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/pulls"
+  print(f"URL PRs: {url_prs}")
+  
+  while True:
+    response_prs = requests.get(url_prs, headers=headers)
+    
+    if response_prs.status_code == 200:
+      pr_stats = response_prs.json()
+      num_prs = len(pr_stats)
+      return num_prs
+      
+    elif response_prs.status_code == 202:
+      print("Got 202, Wating...")
+      time.sleep(30)
+      
+    else:
+      print(f"Failed to fecth data: {response_prs.status_code}")
+      return None
 
 def upload_metrics_to_cloudwatch(num_issues, num_prs):
 
@@ -76,5 +99,6 @@ def upload_metrics_to_cloudwatch(num_issues, num_prs):
     print("No metrics to Upload")
 
 if __name__ == "__main__":
-  num_issues, num_prs = fetch_issues_and_prs()
+  num_issues = fetch_issues()
+  num_prs = fetch_prs()
   upload_metrics_to_cloudwatch(num_issues, num_prs)
