@@ -32,18 +32,24 @@ headers = {
 
 def fetch_data(url):
   print(f"URL: {url}")
-  while True:
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-      stats = response.json()
-      num_data = len(stats)
-      return num_data
-    elif response.status_code == 202:
-      print("Got 202, Wating...")
-      time.sleep(30)
-    else:
-      print(f"Failed to fecth data: {response.status_code}")
-      return None
+  items = []
+  while url:
+    while True:
+      response = requests.get(url, headers=headers)
+      if response.status_code == 200:
+        items.extend(response.json())
+        url = response.links.get('next', {}).get('url')
+        break
+        # stats = response.json()
+        # num_data = len(stats)
+        # return num_data
+      elif response.status_code == 202:
+        print("Got 202, Wating...")
+        time.sleep(30)
+      else:
+        print(f"Failed to fecth data: {response.status_code}")
+        return None
+  return len(items)
 
 def fetch_num_open_issues():  
   url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=open"
