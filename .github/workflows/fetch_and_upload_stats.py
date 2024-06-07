@@ -75,17 +75,17 @@ def upload_metrics_to_cloudwatch(num_issues, num_prs_open, num_prs_closed_yester
       Namespace = NAMESPACE,
       MetricData = [
         {
-          'MetricName':'NumberOfOpenIssues',
+          'MetricName':f'NumberOfOpenIssues.{REPO_NAME}',
           'Value':num_issues,
           'Unit':'Count'
         },
         {
-          'MetricName':'NumberOfOpenPRs',
+          'MetricName':f'NumberOfOpenPRs.{REPO_NAME}',
           'Value':num_prs_open,
           'Unit':'Count'
         },
         {
-          'MetricName':'NumberOfPRsClosed',
+          'MetricName':f'NumberOfPRsClosed.{REPO_NAME}',
           'Value':num_prs_closed_yesterday,
           'Unit':'Count'
         }
