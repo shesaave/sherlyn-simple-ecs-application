@@ -42,7 +42,7 @@ def fetch_data(url):
       print("Got 202, Wating...")
       time.sleep(30)
     else:
-      print(f"Failed to fecth data: {response_repo.status_code}")
+      print(f"Failed to fecth data: {response.status_code}")
       return None
 
 def fetch_num_open_issues():  
