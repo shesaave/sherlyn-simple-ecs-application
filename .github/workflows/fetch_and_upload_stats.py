@@ -38,7 +38,7 @@ def fetch_data(url):
       stats = response.json()
       num_data = len(stats)
       return num_data
-    elif response_issues.status_code == 202:
+    elif response.status_code == 202:
       print("Got 202, Wating...")
       time.sleep(30)
     else:
