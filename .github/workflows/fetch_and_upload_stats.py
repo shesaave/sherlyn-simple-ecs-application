@@ -67,7 +67,7 @@ def fetch_num_closed_prs_yesterday():
 
 def upload_metrics_to_cloudwatch(num_issues, num_prs_open, num_prs_closed_yesterday):
 
-  if num_issues is not None and num_prs is not None:
+  if num_issues is not None and num_prs_open is not None:
     # put metric data to CloudWatch
     print(f"Number of PRs: {num_prs_open}")
     print(f"Number of Issues: {num_issues}")
