@@ -63,7 +63,7 @@ def fetch_num_closed_prs_yesterday():
   start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
   end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
   url_closed_prs_yesterday = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=closed&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
-  return fetch_data(url)
+  return fetch_data(url_closed_prs_yesterday)
 
 def upload_metrics_to_cloudwatch(num_issues, num_prs_open, num_prs_closed_yesterday):
 
