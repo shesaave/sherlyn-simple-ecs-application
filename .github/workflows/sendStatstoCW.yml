@@ -1,5 +1,8 @@
 name: Send GitHub Stats to CloudWatch
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   send-stats:
