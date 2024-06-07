@@ -99,4 +99,4 @@ if __name__ == "__main__":
   num_open_issues = fetch_num_open_issues()
   num_open_prs = fetch_num_open_prs()
   num_closed_prs = fetch_num_closed_prs_yesterday()
-  upload_metrics_to_cloudwatch(num_issues - num_prs, num_prs, num_closed_prs)
+  upload_metrics_to_cloudwatch(num_open_issues - num_open_prs, num_open_prs, num_closed_prs)
