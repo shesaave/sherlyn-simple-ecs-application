@@ -60,8 +60,8 @@ def fetch_num_closed_issues():
 def fetch_num_closed_prs_yesterday():
   today = datetime.utcnow().date()
   yesterday = today - timedelta(days=1)
-  start_of_yesterday = datetime.combine(yesterday, datetime.min.time()) + "Z"
-  end_of_yesterday = datetime.combine(yesterday, datetime.max.time()) + "Z"
+  start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
+  end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
   url_closed_prs_yesterday = f"{GITHUB_API_URL}/repos/amazreech/{REPO_NAME}/issues?state=closed&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
   return fetch_data(url)
 
