@@ -31,7 +31,7 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           NAMESPACE: ${{ secrets.NAMESPACE }}
         run:
-          python .github/workflows/fetch_and_upload_stats.py 2024-04-18 2021-06-18
+          python .github/workflows/fetch_and_upload_stats.py 2024-04-18 2024-06-18
 
       # - name: Fetch and Upload GitHub Repository Stats GitHUb Action Deploy Repository
       #   env:
