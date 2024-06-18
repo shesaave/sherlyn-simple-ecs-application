@@ -113,7 +113,7 @@ def upload_metrics_to_cloudwatch(num_issues, num_prs_open, num_prs_closed_yester
   #   print("No metrics to Upload")
 
 if __name__ == "__main__":
-  if len(sys.argv != 3):
+  if len(sys.argv) != 3:
     print("Usage: python fetch_and_upload_stats.py <start_date> <end_date>")
     sys.exit(1)
 
