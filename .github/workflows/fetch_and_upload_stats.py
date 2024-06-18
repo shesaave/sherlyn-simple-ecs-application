@@ -83,7 +83,7 @@ def fetch_num_open_prs(current_date):
   open_prs_count = 0
   
   for pr in all_prs:
-    created_at = datetime.strptime(pr['created_at'])
+    created_at = datetime.strptime(pr['created_at'], "%Y-%m-%dT%H:%M:%SZ")
     closed_at = pr['closed_at']
     if closed_at:
       closed_at = datetime.strptime(closed_at)
