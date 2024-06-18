@@ -127,7 +127,7 @@ if __name__ == "__main__":
 
     metrics = {
       'NumberOfOpenIssues': num_open_issues - num_open_prs,
-      'NumberOfOpenPRs': num_open_prs
+      'NumberOfOpenPRs': num_open_prs,
       'Timestamp': current_date
     }
     
