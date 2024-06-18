@@ -73,7 +73,7 @@ def fetch_num_closed_prs_yesterday():
   return fetch_data(url_closed_prs_yesterday)
 
 def upload_metrics_to_cloudwatch(metrics):
-
+  MetricData = []
   for metric_name, value in metrics.items():
     metric_data.append({
       'MetricName':metric_name,
