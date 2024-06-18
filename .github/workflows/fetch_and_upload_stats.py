@@ -63,7 +63,7 @@ def fetch_num_open_issues(current_date):
   open_issues_count = 0
   
   for issue in all_issues:
-    created_at = datetime.strptime(issue['created_at'])
+    created_at = datetime.strptime(issue['created_at'], "%Y-%m-%dT%H:%M:%SZ")
     closed_at = issue[ 'closed_at']
     if closed_at:
       closed_at = datetime.strptime(closed_at)
