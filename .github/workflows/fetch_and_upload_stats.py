@@ -126,8 +126,8 @@ if __name__ == "__main__":
     num_closed_prs = fetch_num_closed_prs_yesterday()
 
     metrics = {
-      'NumberOfOpenIssues:' num_open_issues - num_open_prs,
-      'NumberOfOpenPRs:' num_open_prs
+      'NumberOfOpenIssues': num_open_issues - num_open_prs,
+      'NumberOfOpenPRs': num_open_prs
       'Timestamp': current_date
     }
     
