@@ -77,7 +77,7 @@ def fetch_num_open_prs(current_date):
 
   #url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=open&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
   url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=open&until={end_of_yesterday.isoformat()}"
-  url_prs_closed_later = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed&since={end_of_yesterday.isoformat()}"
+  url_prs_closed_later = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=closed&since={end_of_yesterday.isoformat()}"
 
   output1 = fetch_data(url_prs)
   output2 = fetch_data(url_prs_closed_later)
