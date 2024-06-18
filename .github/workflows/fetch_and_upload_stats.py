@@ -3,6 +3,7 @@ import time
 import boto3
 import json
 import os
+import sys
 from datetime import datetime, timedelta
 
 # GitHub API details
