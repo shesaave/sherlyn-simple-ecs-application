@@ -83,8 +83,8 @@ def fetch_num_open_prs(current_date):
   open_prs_count = 0
   
   for pr in all_prs:
-    created_at = datetime.strptime(issue['created_at'])
-    closed_at = issue['closed_at']
+    created_at = datetime.strptime(pr['created_at'])
+    closed_at = pr['closed_at']
     if closed_at:
       closed_at = datetime.strptime(closed_at)
     if created_at <= end_of_day and (closed_at is None or closed_at >= start_of_day):
