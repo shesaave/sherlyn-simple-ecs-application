@@ -128,7 +128,7 @@ if __name__ == "__main__":
     num_closed_prs = fetch_num_closed_prs_yesterday()
 
     output = output + "\nDate:" + current_date.strftime("%M:%D:%Y")
-    output = output + "\nOpen PRs:" + num_open_prs + "\nOpen Issues:" + num_open_issues- num_open_prs
+    output = output + "\nOpen PRs:" + str(num_open_prs) + "\nOpen Issues:" + str(num_open_issues- num_open_prs)
     output = output + "\n"
     
 
