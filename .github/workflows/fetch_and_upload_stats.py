@@ -121,16 +121,23 @@ if __name__ == "__main__":
   end_date = datetime.fromisoformat(sys.argv[1])
 
   current_date = start_date
+  output = ""
   while current_date <= end_date:
     num_open_issues = fetch_num_open_issues()
     num_open_prs = fetch_num_open_prs()
     num_closed_prs = fetch_num_closed_prs_yesterday()
 
-    metrics = {
-      'NumberOfOpenIssues': num_open_issues - num_open_prs,
-      'NumberOfOpenPRs': num_open_prs,
-      'Timestamp': current_date
-    }
+    output = output + "\nDate:" + current_date
+    output = output + "\nOpen PRs:" + num_open_prs + "\nOpen Issues:" + num_open_issues- num_open_prs)
+    output = output + "\n"
     
-    upload_metrics_to_cloudwatch(metrics)
+
+    # metrics = {
+    #   'NumberOfOpenIssues': num_open_issues - num_open_prs,
+    #   'NumberOfOpenPRs': num_open_prs,
+    #   'Timestamp': current_date
+    # }
+    
+    # upload_metrics_to_cloudwatch(metrics)
     current_date += timedelta(days=1)
+  print(output)
