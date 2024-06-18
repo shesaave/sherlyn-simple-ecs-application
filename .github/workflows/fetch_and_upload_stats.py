@@ -50,39 +50,49 @@ def fetch_data(url):
       else:
         print(f"Failed to fecth data: {response.status_code}")
         return None
-  return len(items)
+  return items
 
 def fetch_num_open_issues(current_date):  
   today = current_date
-  yesterday = today - timedelta(days=1)
-  start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
-  end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
-  url_open_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=open&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
-  url_issues_closed_later = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed&since={end_of_yesterday.isoformat()}"
+  start_of_day = datetime.combine(today, datetime.min.time())
+  end_of_day = datetime.combine(today, datetime.max.time())
+  
+  url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues"
+  all_issues = fetch_data(url_issues)
 
-  output1 = fetch_data(url_open_issues)
-  output2 = fetch_data(url_issues_closed_later)
-
-  print("*******************")
-  print(type(output1))
-  print("*******************")
-        
-  return output1 + output2
+  open_issues_count = 0
+  
+  for issue in all_issues:
+    created_at = datetime.strptime(issue['created_at'])
+    closed_at = issue[ 'closed_at']
+    if closed_at:
+      closed_at = datetime.strptime(closed_at)
+    if created_at <= end_of_day and (closed_at is None or closed_at >= start_of_day):
+      open_issues_count += 1
+  
+  return open_issues_count
 
 def fetch_num_open_prs(current_date):
   today = current_date
-  yesterday = today - timedelta(days=1)
-  start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
-  end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
+  today = current_date
+  start_of_day = datetime.combine(today, datetime.min.time())
+  end_of_day = datetime.combine(today, datetime.max.time())
+  
+  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls
 
-  #url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=open&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
-  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=open&until={end_of_yesterday.isoformat()}"
-  url_prs_closed_later = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=closed&since={end_of_yesterday.isoformat()}"
+  all_prs = fetch_data(url_prs)
 
-  output1 = fetch_data(url_prs)
-  output2 = fetch_data(url_prs_closed_later)
-
-  return output1 + output2
+    open_prs_count = 0
+  
+  for pr in all_prs:
+    created_at = datetime.strptime(issue['created_at'])
+    closed_at = issue['closed_at']
+    if closed_at:
+      closed_at = datetime.strptime(closed_at)
+    if created_at <= end_of_day and (closed_at is None or closed_at >= start_of_day):
+      open_prs_count += 1
+  
+  return open_prs_count
 
 def fetch_num_closed_issues():
   url_closed_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed"
