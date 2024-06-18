@@ -127,7 +127,7 @@ if __name__ == "__main__":
     sys.exit(1)
 
   start_date = datetime.fromisoformat(sys.argv[1])
-  end_date = datetime.fromisoformat(sys.argv[1])
+  end_date = datetime.fromisoformat(sys.argv[2])
 
   current_date = start_date
   output = ""
