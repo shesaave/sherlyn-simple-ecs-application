@@ -52,25 +52,34 @@ def fetch_data(url):
         return None
   return len(items)
 
-def fetch_num_open_issues():  
-  url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=open"
+def fetch_num_open_issues(current_date):  
+  today = current_date
+  yesterday = today - timedelta(days=1)
+  start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
+  end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
+  url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=open&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
   return fetch_data(url_issues)
 
-def fetch_num_open_prs():
-  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=open"
+def fetch_num_open_prs(current_date):
+  today = current_date
+  yesterday = today - timedelta(days=1)
+  start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
+  end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
+
+  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=open&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
   return fetch_data(url_prs)
 
 def fetch_num_closed_issues():
   url_closed_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed"
   return fetch_data(url_closed_issues)
 
-def fetch_num_closed_prs_yesterday():
-  today = datetime.utcnow().date()
-  yesterday = today - timedelta(days=1)
-  start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
-  end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
-  url_closed_prs_yesterday = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
-  return fetch_data(url_closed_prs_yesterday)
+# def fetch_num_closed_prs_yesterday():
+#   today = datetime.utcnow().date()
+#   yesterday = today - timedelta(days=1)
+#   start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
+#   end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
+#   url_closed_prs_yesterday = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
+#   return fetch_data(url_closed_prs_yesterday)
 
 def upload_metrics_to_cloudwatch(metrics):
   metric_data = []
@@ -123,9 +132,9 @@ if __name__ == "__main__":
   current_date = start_date
   output = ""
   while current_date <= end_date:
-    num_open_issues = fetch_num_open_issues()
-    num_open_prs = fetch_num_open_prs()
-    num_closed_prs = fetch_num_closed_prs_yesterday()
+    num_open_issues = fetch_num_open_issues(current_date)
+    num_open_prs = fetch_num_open_prs(current_date)
+    # num_closed_prs = fetch_num_closed_prs_yesterday()
 
     output = output + "\nDate:" + current_date.strftime("%M:%D:%Y")
     output = output + "\nOpen PRs:" + str(num_open_prs) + "\nOpen Issues:" + str(num_open_issues- num_open_prs)
