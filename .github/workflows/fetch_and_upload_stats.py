@@ -78,7 +78,7 @@ def fetch_num_open_prs(current_date):
   start_of_day = datetime.combine(today, datetime.min.time())
   end_of_day = datetime.combine(today, datetime.max.time())
   
-  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls
+  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls"
 
   all_prs = fetch_data(url_prs)
 
@@ -94,57 +94,6 @@ def fetch_num_open_prs(current_date):
   
   return open_prs_count
 
-def fetch_num_closed_issues():
-  url_closed_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed"
-  return fetch_data(url_closed_issues)
-
-# def fetch_num_closed_prs_yesterday():
-#   today = datetime.utcnow().date()
-#   yesterday = today - timedelta(days=1)
-#   start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
-#   end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
-#   url_closed_prs_yesterday = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
-#   return fetch_data(url_closed_prs_yesterday)
-
-def upload_metrics_to_cloudwatch(metrics):
-  metric_data = []
-  for metric_name, value in metrics.items():
-    metric_data.append({
-      'MetricName':metric_name,
-      'Value':value,
-      'Unit':'Count',
-      'Timestamp':metrics['Timestamp']
-    })
-    response = client.put_metric_data(Namespace = NAMESPACE, MetricData = metric_data)
-    print("Uploaded metrics to cloudwatch:", response)
-
-  # if num_issues is not None and num_prs_open is not None:
-  #   # put metric data to CloudWatch
-  #   print(f"Number of PRs: {num_prs_open}")
-  #   print(f"Number of Issues: {num_issues}")
-  #   response = client.put_metric_data(
-  #     Namespace = NAMESPACE,
-  #     MetricData = [
-  #       {
-  #         'MetricName':f'NumberOfOpenIssues.{REPO_NAME}',
-  #         'Value':num_issues,
-  #         'Unit':'Count'
-  #       },
-  #       {
-  #         'MetricName':f'NumberOfOpenPRs.{REPO_NAME}',
-  #         'Value':num_prs_open,
-  #         'Unit':'Count'
-  #       },
-  #       {
-  #         'MetricName':f'NumberOfPRsClosed.{REPO_NAME}',
-  #         'Value':num_prs_closed_yesterday,
-  #         'Unit':'Count'
-  #       }
-  #     ]
-  #   )
-  #   print("Uploaded metrics to cloudwatch:", response)
-  # else:
-  #   print("No metrics to Upload")
 
 if __name__ == "__main__":
   if len(sys.argv) != 3:
@@ -165,13 +114,5 @@ if __name__ == "__main__":
     output = output + "\nOpen PRs:" + str(num_open_prs) + "\nOpen Issues:" + str(num_open_issues- num_open_prs)
     output = output + "\n"
     
-
-    # metrics = {
-    #   'NumberOfOpenIssues': num_open_issues - num_open_prs,
-    #   'NumberOfOpenPRs': num_open_prs,
-    #   'Timestamp': current_date
-    # }
-    
-    # upload_metrics_to_cloudwatch(metrics)
     current_date += timedelta(days=1)
   print(output)
