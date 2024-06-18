@@ -57,9 +57,17 @@ def fetch_num_open_issues(current_date):
   yesterday = today - timedelta(days=1)
   start_of_yesterday = datetime.combine(yesterday, datetime.min.time())
   end_of_yesterday = datetime.combine(yesterday, datetime.max.time())
-  #url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=open&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
-  url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=open&until={end_of_yesterday.isoformat()}"
-  return fetch_data(url_issues)
+  url_open_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=open&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
+  url_issues_closed_later = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed&since={end_of_yesterday.isoformat()}"
+
+  output1 = fetch_data(url_open_issues)
+  output2 = fetch_data(url_issues_closed_later)
+
+  print("*******************")
+  print(type(output1))
+  print("*******************")
+        
+  return output1 + output2
 
 def fetch_num_open_prs(current_date):
   today = current_date
@@ -69,7 +77,12 @@ def fetch_num_open_prs(current_date):
 
   #url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=open&since={start_of_yesterday.isoformat()}&until={end_of_yesterday.isoformat()}"
   url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=open&until={end_of_yesterday.isoformat()}"
-  return fetch_data(url_prs)
+  url_prs_closed_later = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed&since={end_of_yesterday.isoformat()}"
+
+  output1 = fetch_data(url_prs)
+  output2 = fetch_data(url_prs_closed_later)
+
+  return output1 + output2
 
 def fetch_num_closed_issues():
   url_closed_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=closed"
