@@ -52,13 +52,10 @@ def fetch_data(url):
         return None
   return items
 
-def fetch_num_open_issues(current_date):  
+def fetch_num_open_issues(current_date, all_issues):  
   today = current_date
   start_of_day = datetime.combine(today, datetime.min.time())
   end_of_day = datetime.combine(today, datetime.max.time())
-  
-  url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=all"
-  all_issues = fetch_data(url_issues)
   
   open_issues_count = 0
   
@@ -72,14 +69,12 @@ def fetch_num_open_issues(current_date):
   
   return open_issues_count
 
-def fetch_num_open_prs(current_date):
+def fetch_num_open_prs(current_date, url_prs):
   today = current_date
   today = current_date
   start_of_day = datetime.combine(today, datetime.min.time())
   end_of_day = datetime.combine(today, datetime.max.time())
   
-  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=all"
-  all_prs = fetch_data(url_prs)
   open_prs_count = 0
   
   for pr in all_prs:
@@ -101,11 +96,17 @@ if __name__ == "__main__":
   start_date = datetime.fromisoformat(sys.argv[1])
   end_date = datetime.fromisoformat(sys.argv[2])
 
+  url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=all"
+  all_issues = fetch_data(url_issues)
+
+  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=all"
+  all_prs = fetch_data(url_prs)
+
   current_date = start_date
   output = "|  |  |  | + "\n" + |--|--|--|" +"\n" + "| Date | Number of PRs | Number of Issues |"
   while current_date <= end_date:
-    num_open_issues = fetch_num_open_issues(current_date)
-    num_open_prs = fetch_num_open_prs(current_date)
+    num_open_issues = fetch_num_open_issues(current_date, all_issues)
+    num_open_prs = fetch_num_open_prs(current_date, all_prs)
     # num_closed_prs = fetch_num_closed_prs_yesterday()
 
     # output = output + "\nDate:" + current_date.strftime("%M:%D:%Y")
