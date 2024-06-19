@@ -103,13 +103,14 @@ if __name__ == "__main__":
   all_prs = fetch_data(url_prs)
 
   current_date = start_date
-  output = "|  |  |  | + "\n" + |--|--|--|" +"\n" + "| Date | Number of PRs | Number of Issues |"
+  output = "|  |  |  |" + "\n" + "|--|--|--|" +"\n" + "| Date | Number of PRs | Number of Issues |"
+  
   while current_date <= end_date:
     num_open_issues = fetch_num_open_issues(current_date, all_issues)
     num_open_prs = fetch_num_open_prs(current_date, all_prs)
     # num_closed_prs = fetch_num_closed_prs_yesterday()
 
-    # output = output + "\nDate:" + current_date.strftime("%M:%D:%Y")
-    output = output + "\n" + "| " + str(num_open_prs) + " |" + "| " +  str(num_open_issues- num_open_prs)+ " |"    
+    # output = output + "\n| " + current_date.strftime("%M:%D:%Y") + " |"
+    output = output + "\n" + "| " + str(num_open_prs) + " | " + str(num_open_issues- num_open_prs)+ " |"    
     current_date += timedelta(days=1)
   print(output)
