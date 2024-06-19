@@ -102,15 +102,13 @@ if __name__ == "__main__":
   end_date = datetime.fromisoformat(sys.argv[2])
 
   current_date = start_date
-  output = ""
+  output = "|  |  |  | + "\n" + |--|--|--|" +"\n" + "| Date | Number of PRs | Number of Issues |"
   while current_date <= end_date:
     num_open_issues = fetch_num_open_issues(current_date)
     num_open_prs = fetch_num_open_prs(current_date)
     # num_closed_prs = fetch_num_closed_prs_yesterday()
 
-    output = output + "\nDate:" + current_date.strftime("%M:%D:%Y")
-    output = output + "\nOpen PRs:" + str(num_open_prs) + "\nOpen Issues:" + str(num_open_issues- num_open_prs)
-    output = output + "\n"
-    
+    # output = output + "\nDate:" + current_date.strftime("%M:%D:%Y")
+    output = output + "\n" + "| " + str(num_open_prs) + " |" + "| " +  str(num_open_issues- num_open_prs)+ " |"    
     current_date += timedelta(days=1)
   print(output)
