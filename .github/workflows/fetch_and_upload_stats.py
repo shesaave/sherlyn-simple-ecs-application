@@ -110,6 +110,6 @@ if __name__ == "__main__":
     num_open_prs = fetch_num_open_prs(current_date, all_prs)
     # num_closed_prs = fetch_num_closed_prs_yesterday()
 
-    output = output + "\n" + "| " + current_date.strftime("%M:%D:%Y") + " | " str(num_open_prs) + " | " + str(num_open_issues- num_open_prs)+ " |"    
+    output = output + "\n" + "| " + current_date.strftime("%M:%D:%Y") + " | " + str(num_open_prs) + " | " + str(num_open_issues- num_open_prs)+ " |"    
     current_date += timedelta(days=1)
   print(output)
