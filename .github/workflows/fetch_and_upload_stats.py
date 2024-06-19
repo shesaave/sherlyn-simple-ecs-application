@@ -57,7 +57,7 @@ def fetch_num_open_issues(current_date):
   start_of_day = datetime.combine(today, datetime.min.time())
   end_of_day = datetime.combine(today, datetime.max.time())
   
-  url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues"
+  url_issues = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/issues?state=all"
   all_issues = fetch_data(url_issues)
   
   open_issues_count = 0
@@ -78,7 +78,7 @@ def fetch_num_open_prs(current_date):
   start_of_day = datetime.combine(today, datetime.min.time())
   end_of_day = datetime.combine(today, datetime.max.time())
   
-  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls"
+  url_prs = f"{GITHUB_API_URL}/repos/aws-actions/{REPO_NAME}/pulls?state=all"
   all_prs = fetch_data(url_prs)
   open_prs_count = 0
   
