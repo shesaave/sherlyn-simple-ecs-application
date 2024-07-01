@@ -95,7 +95,6 @@ jobs:
     name: Deploy-service-2
     needs: deploy-service-1
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
       - name: Checkout
