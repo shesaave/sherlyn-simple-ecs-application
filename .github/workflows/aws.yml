@@ -86,7 +86,7 @@ jobs:
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
-      uses: shesaave/amazon-ecs-deploy-task-definition@2c63b0dd439a157b46597220f3cc15020a91e0c1
+      uses: shesaave/amazon-ecs-deploy-task-definition@95146ff33507042f9c12d33a323f30e10c7c4663
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: ${{ env.ECS_SERVICE }}
