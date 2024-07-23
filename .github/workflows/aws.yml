@@ -32,12 +32,12 @@ on:
 
 env:
   AWS_REGION: us-west-2                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: amazon-ecs-deploy-task-definition     # set this to your Amazon ECR repository name
-  ECS_SERVICE: testing                 # set this to your Amazon ECS service name
-  ECS_CLUSTER: testing-cluster                 # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: testing.json # set this to the path to your Amazon ECS task definition
+  ECR_REPOSITORY: one-off           # set this to your Amazon ECR repository name # set this to your Amazon ECS service name
+  ECS_CLUSTER: one-off-cluster                 # set this to your Amazon ECS cluster name
+  #ECS_TASK_DEFINITION_ARN: arn:aws:ecs:us-west-2:851725652419:task-definition/one-off-task-definition:1
+  ECS_TASK_DEFINITION: one-off-task-definition-revision1.json # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: test           # set this to the name of the container in the
+  CONTAINER_NAME: one-off           # set this to the name of the container in the
                                                # containerDefinitions section of your task definition
 
 permissions:
@@ -86,7 +86,7 @@ jobs:
         image: ${{ steps.build-image.outputs.image }}
 
     - name: Deploy Amazon ECS task definition
-      uses: shesaave/amazon-ecs-deploy-task-definition@03d2b63d7d1374435eba1e08b0cbcf2eaba26d16
+      uses: shesaave/amazon-ecs-deploy-task-definition@a4c95694d54d2a57a3af268304bae260f1003743
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
         service: ${{ env.ECS_SERVICE }}
